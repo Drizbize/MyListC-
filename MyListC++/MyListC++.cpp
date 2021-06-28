@@ -52,10 +52,8 @@ public:
 		if (index < 0)
 		{
 			Node* previous = next->previous;
-			next = next->previous;
-			newNode->next = next->next;
-			next->next = newNode;
-			newNode->previous = next;
+			newNode->previous = previous;
+			newNode->next = next;
 		}
 		else
 		{
