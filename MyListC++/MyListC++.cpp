@@ -34,15 +34,15 @@ public:
 	void insert(int value, int index)
 	{
 
-		if (index + 3 == size + 1)
+		if (index == size)
 		{
 			Push(value);
 			return;
 		}
 
-		Node* current = FindAt(index);
+		Node* Next = FindAt(index);
 
-		if (!current)
+		if (!Next)
 		{
 			std::cout << "wrong index\n";
 			return;
@@ -50,12 +50,12 @@ public:
 
 		Node* newNode = new Node;
 		newNode->value = value;
-		if (index > 0)
+		if (Node* previous = Next->previous)
 		{
-			current = current->previous;
-			newNode->next = current->next;
-			current->next = newNode;
-			newNode->previous = current;
+			Next = Next->previous;
+			newNode->next = Next->next;
+			Next->next = newNode;
+			newNode->previous = Next;
 		}
 		else
 		{
@@ -140,7 +140,7 @@ int main()
 	list.Push(7);
 	list.Push(32);
 
-	list.insert(5, 3);
+	list.insert(5, 3);  // 10 , 20 , 30
 
 	list.Print();
 }
