@@ -33,16 +33,15 @@ public:
 
 	void insert(int value, int index)
 	{
-
 		if (index == size)
 		{
 			Push(value);
 			return;
 		}
 
-		Node* Next = FindAt(index);
+		Node* next = FindAt(index);
 
-		if (!Next)
+		if (!next)
 		{
 			std::cout << "wrong index\n";
 			return;
@@ -50,12 +49,13 @@ public:
 
 		Node* newNode = new Node;
 		newNode->value = value;
-		if (Node* previous = Next->previous)
+		if (index < 0)
 		{
-			Next = Next->previous;
-			newNode->next = Next->next;
-			Next->next = newNode;
-			newNode->previous = Next;
+			Node* previous = next->previous;
+			next = next->previous;
+			newNode->next = next->next;
+			next->next = newNode;
+			newNode->previous = next;
 		}
 		else
 		{
