@@ -33,9 +33,16 @@ public:
 
 	void insert(int value, int index)
 	{
+
+		if (index + 3 == size + 1)
+		{
+			Push(value);
+			return;
+		}
+
 		Node* current = FindAt(index);
 
-		if (!current || index < 0)
+		if (!current)
 		{
 			std::cout << "wrong index\n";
 			return;
@@ -43,28 +50,19 @@ public:
 
 		Node* newNode = new Node;
 		newNode->value = value;
-		if (current->next == nullptr)
+		if (index > 0)
 		{
-			last->next = newNode;
-			newNode->previous = last;
-			last = newNode;
+			current = current->previous;
+			newNode->next = current->next;
+			current->next = newNode;
+			newNode->previous = current;
 		}
-		else 
+		else
 		{
-			if (index > 0)
-			{
-				current = current->previous;
-				newNode->next = current->next;
-				current->next = newNode;
-				newNode->previous = current;
-			}
-			else
-			{
-				newNode->next = first;
-				first = newNode;
-				first->previous = newNode;
-				newNode->previous = nullptr;
-			}
+			newNode->next = first;
+			first = newNode;
+			first->previous = newNode;
+			newNode->previous = nullptr;
 		}
 		size++;
 	}
@@ -75,8 +73,7 @@ public:
 		while (current)
 		{
 			//current->value = nullptr;
-			current = current->previous;
-			
+			current = current->previous;			
 		}
 		size = 0;
 	}
@@ -84,6 +81,14 @@ public:
 	Node* FindAt(int index)
 	{
 		Node* current = first;
+		if (index < 0)
+		{
+			return nullptr;
+		}
+		else if (index + 1 > size)
+		{
+			return nullptr;
+		}
 		for (int i = 0; i < index; i++)
 		{
 			current = current->next;
@@ -92,7 +97,7 @@ public:
 				return nullptr;
 			}
 		}
-		return current;		
+		return current;
 	}
 
 	Node* Find(int findnumber)
@@ -134,9 +139,8 @@ int main()
 	list.Push(2);
 	list.Push(7);
 	list.Push(32);
-	list.Push(60);
 
-	list.insert(555, 3);
+	list.insert(5, 3);
 
 	list.Print();
 }
