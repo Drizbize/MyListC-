@@ -43,20 +43,30 @@ public:
 
 		Node* newNode = new Node;
 		newNode->value = value;
-		if (index > 0)
+		if (current->next == nullptr)
 		{
-			current = current->previous;
-			newNode->next = current->next;
-			current->next = newNode;
-			newNode->previous = current;
+			last->next = newNode;
+			newNode->previous = last;
+			last = newNode;
 		}
-		else
+		else 
 		{
-			newNode->next = first;
-			first = newNode;
-			first->previous = newNode;
-			newNode->previous = nullptr;
-		}	
+			if (index > 0)
+			{
+				current = current->previous;
+				newNode->next = current->next;
+				current->next = newNode;
+				newNode->previous = current;
+			}
+			else
+			{
+				newNode->next = first;
+				first = newNode;
+				first->previous = newNode;
+				newNode->previous = nullptr;
+			}
+		}
+		size++;
 	}
 
 	void DeleteList()
@@ -126,7 +136,7 @@ int main()
 	list.Push(32);
 	list.Push(60);
 
-	list.insert(555, 7);
+	list.insert(555, 3);
 
 	list.Print();
 }
