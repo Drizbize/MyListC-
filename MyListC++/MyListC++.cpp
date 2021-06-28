@@ -49,11 +49,12 @@ public:
 
 		Node* newNode = new Node;
 		newNode->value = value;
-		if (index < 0)
+		if (index > 0)
 		{
 			Node* previous = next->previous;
 			newNode->previous = previous;
 			newNode->next = next;
+			previous->next = newNode;
 		}
 		else
 		{
@@ -134,11 +135,11 @@ public:
 int main()
 {
 	List list;
-	list.Push(2);
-	list.Push(7);
-	list.Push(32);
+	list.Push(10);
+	list.Push(20);
+	list.Push(30);
 
-	list.insert(5, 3);  // 10 , 20 , 30
+	list.insert(5, 1);  // 10 , 20 , 30
 
 	list.Print();
 }
