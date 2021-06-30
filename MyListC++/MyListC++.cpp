@@ -55,13 +55,13 @@ public:
 			newNode->previous = previous;
 			newNode->next = next;
 			previous->next = newNode;
+			next->previous = newNode;
 		}
 		else
 		{
 			newNode->next = first;
-			first = newNode;
 			first->previous = newNode;
-			newNode->previous = nullptr;
+			first = newNode;
 		}
 		size++;
 	}
@@ -128,8 +128,6 @@ public:
 	{
 		std::cout << size << "\n";
 	}
-
-
 };
 
 int main()
@@ -139,7 +137,8 @@ int main()
 	list.Push(20);
 	list.Push(30);
 
-	list.insert(5, 1);  // 10 , 20 , 30
+	list.insert(5, 0);
+	list.insert(6, 0);
 
 	list.Print();
 }
