@@ -69,12 +69,20 @@ public:
 	void DeleteList()
 	{
 		Node* current = last;
+		
 		while (current)
 		{
-			//current->value = nullptr;
-			current = current->previous;			
+			current = last;
+			if (current == nullptr)
+			{
+				first = nullptr;
+				last = nullptr;
+				size = 0;
+				return;
+			}
+			last = current->previous;
+			delete current;
 		}
-		size = 0;
 	}
 
 	Node* FindAt(int index)
@@ -116,6 +124,10 @@ public:
 	void Print()
 	{
 		Node* current = first;
+		if (!current)
+		{
+			std::cout << "List is empty";
+		}
 		while (current)
 		{
 			std::cout << current->value << " ";
@@ -140,5 +152,7 @@ int main()
 	list.insert(5, 0);
 	list.insert(6, 0);
 
+	list.Print();
+	list.DeleteList();
 	list.Print();
 }
